@@ -1,6 +1,6 @@
 const initialState = {
     heroes: [],
-    heroesLoadingStatus: 'idle',
+    heroesLoadingStatus: 'idle',                                // статус загрузки idle -бездействие
     filters: []
 }
 
@@ -21,6 +21,12 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 heroesLoadingStatus: 'error'
+            }
+        case 'HEROES_REMOVE': 
+            return {
+                ...state,
+                heroes: action.payload,
+                heroesLoadingStatus: 'idle'
             }
         default: return state
     }
