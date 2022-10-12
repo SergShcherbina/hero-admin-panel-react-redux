@@ -7,28 +7,34 @@
       "element": "fire"
     },
     {
-      "id": 64,
-      "name": "Морской герой",
-      "description": "Как аквамен, но не из DC",
-      "element": "water"
+      "name": "Сергей Щербина",
+      "description": "арываывааера",
+      "element": "",
+      "id": 65
     },
     {
-      "id": 2,
-      "name": "Первый герой",
-      "description": "Первый герой в рейтинге!",
-      "element": "fire"
+      "name": "Сергей",
+      "description": "асрававиавива",
+      "element": "wind",
+      "id": 66
     },
     {
-      "id": 4,
-      "name": "Морской герой",
-      "description": "Как аквамен, но не из DC",
-      "element": "water"
+      "name": "Сергей Щербина",
+      "description": "вапвапвпвапвап",
+      "element": "earth",
+      "id": 67
     },
     {
-      "id": 6,
-      "name": "Морской герой",
-      "description": "Как аквамен, но не из DC",
-      "element": "water"
+      "name": "гидрогелевые плнки",
+      "description": "вввввввваааааааааааааааааааааааааааав",
+      "element": "wind",
+      "id": 1665642934356
+    },
+    {
+      "name": "Сергей",
+      "description": "медленно программирует",
+      "element": "fire",
+      "id": "e85941ab-bed4-468a-893b-f8187d1ed378"
     }
   ],
   "filters": [
