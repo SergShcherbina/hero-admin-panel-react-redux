@@ -5,7 +5,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { heroesFetching, heroesFetched, heroesFetchingError, heroRemove } from '../../actions';
 import HeroesListItem from "../heroesListItem/HeroesListItem";
 import Spinner from '../spinner/Spinner';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 
+import './heroList.scss'
 
 const HeroesList = () => {
     const {heroes, heroesLoadingStatus} = useSelector(state => state);
@@ -37,14 +39,18 @@ const HeroesList = () => {
         }
 
         return arr.map(({id, ...props}) => {
-            return <HeroesListItem key={id} {...props} onHeroRemove={()=> onHeroRemove(id)}/>
+            return <CSSTransition key={id} timeout={500} classNames="transition"> 
+                        <HeroesListItem key={id} {...props} onHeroRemove={()=> onHeroRemove(id)}/>
+                    </CSSTransition>
         })
     }
 
     const elements = renderHeroesList(heroes);
     return (
         <ul>
-            {elements}
+            <TransitionGroup component={null}> 
+                {elements}
+            </TransitionGroup>
         </ul>
     )
 }

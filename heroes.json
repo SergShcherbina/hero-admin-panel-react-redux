@@ -7,41 +7,37 @@
       "element": "fire"
     },
     {
-      "name": "Сергей Щербина",
-      "description": "арываывааера",
-      "element": "",
-      "id": 65
-    },
-    {
-      "name": "Сергей",
-      "description": "асрававиавива",
+      "name": "Бетмен",
+      "description": "летает как призрак ночи, очень богат",
       "element": "wind",
-      "id": 66
+      "id": "28bc606c-7828-4d46-9d28-b8cf8417a652"
     },
     {
-      "name": "Сергей Щербина",
-      "description": "вапвапвпвапвап",
-      "element": "earth",
-      "id": 67
+      "name": "Водяной",
+      "description": "умеет управлять водой, но не Аквамен)",
+      "element": "water",
+      "id": "f3e381dd-b31a-4195-9769-40f5d942b18d"
+    },
+    {
+      "name": "Капитан",
+      "description": "Проще спросить чего не умеет",
+      "element": "",
+      "id": "2b6bdb34-d86c-42be-b8a5-40f2b6f58a36"
     },
     {
       "name": "гидрогелевые плнки",
-      "description": "вввввввваааааааааааааааааааааааааааав",
-      "element": "wind",
-      "id": 1665642934356
-    },
-    {
-      "name": "Сергей",
-      "description": "медленно программирует",
-      "element": "fire",
-      "id": "e85941ab-bed4-468a-893b-f8187d1ed378"
+      "description": "яяяччччччччччччччччччччччччччччч",
+      "element": "water",
+      "id": "bf834816-f6ea-49be-b97e-c4ec8f78e1c6"
     }
   ],
   "filters": [
-    "all",
-    "fire",
-    "water",
-    "wind",
-    "earth"
+    {
+      "all": "Все",
+      "fire": "Огонь",
+      "water": "Вода",
+      "wind": "Ветер",
+      "earth": "Земля"
+    }
   ]
 }

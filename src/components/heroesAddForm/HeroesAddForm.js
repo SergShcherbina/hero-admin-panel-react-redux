@@ -15,6 +15,7 @@ import { heroAdd } from '../../actions';
 import { v4 as uuidv4 } from 'uuid';                                            //библиотека случайных чисел
 import { useHttp } from "../../hooks/http.hook";
 import './heroesAddForm.scss'                                     
+import { useEffect, useState } from "react";
 
 const validate = values => {                                                    //созд ф-ю по валидации
     const errors = {};                                                       //обьект в который собираем ошибки 
@@ -33,12 +34,25 @@ const HeroesAddForm = () => {
     const {heroes} = useSelector(store => store);
     const dispatch = useDispatch();
     const {request} = useHttp();
+    const [options, setOptions] = useState([]);
+
+    useEffect(()=> {                                                               //получаем options из сервера 
+        request("http://localhost:3001/filters/")
+        .then(data=> setOptions(data))
+    }, [])
 
     const onHeroAdd = (hero) => {
         let newHero = {...hero, id: uuidv4()}                                      //добавляем в героя уникальный id
         dispatch(heroAdd([...heroes, newHero]))                                    //диспетчим копию массива и доб. в него героя
         request("http://localhost:3001/heroes/", "POST", JSON.stringify(newHero))  //отправка посл героя на сервер
     }
+
+    let listOptoions;
+    if(options.length >= 1) {                                                      //пока массив пустой, действий не выполняем
+        listOptoions = Object.entries(options[0])
+        .map((item, i )=>  <option key={i} value={item[0]}>{item[1]}</option>)    
+    }
+    
     return (
         <Formik
             initialValues = {{                
@@ -47,7 +61,7 @@ const HeroesAddForm = () => {
                 "element": ""
             }}
             validate = {validate} 
-            onSubmit={(values, {resetForm}) => {                               //{resetForm}-аргумент для сброса прих из фреймворка
+            onSubmit={(values, {resetForm}) => {                               //{resetForm}-аргумент для сброса прих из Context
                 onHeroAdd(values);
                 resetForm();                                                   //сброс формы после отправки
             }}           
@@ -86,11 +100,12 @@ const HeroesAddForm = () => {
                         className="form-select" 
                         id="element" 
                         name="element">
-                        <option >Я владею элементом...</option>
+                        {listOptoions}
+                        {/* <option >Я владею элементом...</option>
                         <option value="fire">Огонь</option>
                         <option value="water">Вода</option>
                         <option value="wind">Ветер</option>
-                        <option value="earth">Земля</option>
+                        <option value="earth">Земля</option> */}
                     </Field>
                     <ErrorMessage name='element' component="div" className='validate text-danger' />
                 </div>
