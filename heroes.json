@@ -7,37 +7,61 @@
       "element": "fire"
     },
     {
-      "name": "Бетмен",
-      "description": "летает как призрак ночи, очень богат",
-      "element": "wind",
-      "id": "28bc606c-7828-4d46-9d28-b8cf8417a652"
+      "id": 2,
+      "name": "Неизвестный герой",
+      "description": "Скрывающийся в тени",
+      "element": "wind"
     },
     {
-      "name": "Водяной",
-      "description": "умеет управлять водой, но не Аквамен)",
-      "element": "water",
-      "id": "f3e381dd-b31a-4195-9769-40f5d942b18d"
+      "id": 3,
+      "name": "Морской герой",
+      "description": "Как аквамен, но не из DC",
+      "element": "water"
     },
     {
-      "name": "Капитан",
-      "description": "Проще спросить чего не умеет",
-      "element": "",
-      "id": "2b6bdb34-d86c-42be-b8a5-40f2b6f58a36"
+      "id": "8cddcc19-47bf-4554-8e88-7319527d6c9f",
+      "name": "szCascz",
+      "description": "azscaSZCs",
+      "element": "earth"
     },
     {
-      "name": "гидрогелевые плнки",
-      "description": "яяяччччччччччччччччччччччччччччч",
-      "element": "water",
-      "id": "bf834816-f6ea-49be-b97e-c4ec8f78e1c6"
+      "id": "affcdce1-f0a8-413c-b3be-e98dc30c638d",
+      "name": "dzvSDx",
+      "description": "SZdvS",
+      "element": "fire"
+    },
+    {
+      "id": "581f9d19-0e42-4782-a8d4-c220493a2129",
+      "name": "Efix-Store",
+      "description": "afvaszvaszvasz",
+      "element": "fire"
     }
   ],
   "filters": [
     {
-      "all": "Все",
-      "fire": "Огонь",
-      "water": "Вода",
-      "wind": "Ветер",
-      "earth": "Земля"
+      "name": "all",
+      "label": "Все",
+      "className": "btn-outline-dark"
+    },
+    {
+      "name": "fire",
+      "label": "Огонь",
+      "className": "btn-danger"
+    },
+    {
+      "name": "water",
+      "label": "Вода",
+      "className": "btn-primary"
+    },
+    {
+      "name": "wind",
+      "label": "Ветер",
+      "className": "btn-success"
+    },
+    {
+      "name": "earth",
+      "label": "Земля",
+      "className": "btn-secondary"
     }
   ]
 }

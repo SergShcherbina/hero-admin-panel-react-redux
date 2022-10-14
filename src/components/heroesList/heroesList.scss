@@ -6,17 +6,11 @@
         transform: scale(1);
         transition: all 500ms;
     }
-    &-enter-done {
-        transform: scale(1);
-    }
     &-node-exit {
         opacity: 1;
     }
     &-exit-active {
         transform: scale(0);
         transition: all 500ms;
-    }
-    &-exit-done {
-        transform: scale(0);
     }
 }

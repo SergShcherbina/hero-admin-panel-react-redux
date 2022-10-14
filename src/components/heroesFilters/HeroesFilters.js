@@ -6,69 +6,67 @@
 // Изменять json-файл для удобства МОЖНО!
 // Представьте, что вы попросили бэкенд-разработчика об этом
 
-import { useSelector, useDispatch } from "react-redux";
-import { heroesFilter, heroesFetched } from "../../actions";
-import { useHttp } from "../../hooks/http.hook";
-import { useEffect, useState } from "react";
+import {useHttp} from '../../hooks/http.hook';
+import { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import classNames from 'classnames';
+
+import { filtersFetching, filtersFetched, filtersFetchingError, activeFilterChanged } from '../../actions';
+import Spinner from '../spinner/Spinner';
+
 
 const HeroesFilters = () => {
 
-    const {heroes} = useSelector(store => store);
+    const {filters, filtersLoadingStatus, activeFilter} = useSelector(state => state);
     const dispatch = useDispatch();
     const {request} = useHttp();
-    const [dataHeroes, setDataHerois] = useState([]);
-    const [options, setOptions] = useState([]);
 
-    useEffect(()=> {
-        request("http://localhost:3001/heroes/")
-        .then(data=> setDataHerois(data))
-    },[heroes])
+    // Запрос на сервер для получения фильтров и последовательной смены состояния
+    useEffect(() => {
+        dispatch(filtersFetching());
+        request("http://localhost:3001/filters")
+            .then(data => dispatch(filtersFetched(data)))
+            .catch(() => dispatch(filtersFetchingError()))
 
-    useEffect(()=> {
-        request("http://localhost:3001/filters/")
-        .then(data=> setOptions(data))
-    },[])
-    
-    let listOptoions;
-    if(options.length >= 1) {                                                      //пока массив пустой, действий не выполняем
-        listOptoions = Object.entries(options[0])
-        .map((item, i)=> {
-        
-        let elementClassName;                                                     //динамическое формирование класса
+        // eslint-disable-next-line
+    }, []);
 
-        switch (item[0]) {
-            case 'fire':
-                elementClassName = 'btn-danger';
-                break;
-            case 'water':
-                elementClassName = 'btn-primary';
-                break;
-            case 'wind':
-                elementClassName = 'btn-success';
-                break;
-            case 'earth':
-                elementClassName = 'btn-secondary';
-                break;
-            default:
-                elementClassName = 'btn-outline-dark';
+    if (filtersLoadingStatus === "loading") {
+        return <Spinner/>;
+    } else if (filtersLoadingStatus === "error") {
+        return <h5 className="text-center mt-5">Ошибка загрузки</h5>
+    }
+
+    const renderFilters = (arr) => {
+        if (arr.length === 0) {
+            return <h5 className="text-center mt-5">Фильтры не найдены</h5>
         }
 
-    return <button onClick={()=>onHeroesFilter(item[0])} className={`btn ${elementClassName} active`} key={i}>
-            {item[1]}
-            </button>    
-    })}
+        // Данные в json-файле я расширил классами и текстом
+        return arr.map(({name, className, label}) => {
 
-    const onHeroesFilter = (arg) => {                                              //фильтруем героев по совпадени element
-        const res  = arg === 'all'? dataHeroes: dataHeroes.filter(item => item.element === arg) 
-        dispatch(heroesFilter(res))
+            // Используем библиотеку classnames и формируем классы динамически
+            const btnClass = classNames('btn', className, {
+                'active': name === activeFilter
+            });
+            
+            return <button 
+                        key={name} 
+                        id={name} 
+                        className={btnClass}
+                        onClick={() => dispatch(activeFilterChanged(name))}
+                        >{label}</button>
+        })
     }
+
+    const elements = renderFilters(filters);
 
     return (
         <div className="card shadow-lg mt-4">
             <div className="card-body">
                 <p className="card-text">Отфильтруйте героев по элементам</p>
                 <div className="btn-group">
-                    {listOptoions}                    
+                    {elements}
                 </div>
             </div>
         </div>
