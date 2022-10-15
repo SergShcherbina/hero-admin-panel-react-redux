@@ -13,10 +13,34 @@ import HeroesListItem from "../heroesListItem/HeroesListItem";
 import Spinner from '../spinner/Spinner';
 
 import './heroesList.scss';
+import { createSelector } from 'reselect';
 
 
 const HeroesList = () => {
-    const {filteredHeroes, heroesLoadingStatus} = useSelector(state => state);
+
+    const filteredHeroesSelector = createSelector(                       //получаем мемоизирование знач из разн кусочков state
+        state => state.heroes.heroes,
+        state => state.filters.activeFilter,
+        (heroes, filter) => {
+            if(filter === 'all') {                                       //фильтрация по активному фильтру с мимоиз зн из state
+                return heroes
+            } else {
+                return heroes.filter((item)=> item.element ===  filter)
+            }
+        }
+    );
+
+    const filteredHeroes = useSelector(filteredHeroesSelector);         
+
+    // const filteredHeroes = useSelector(state=> {                     //фильтрация по активному фильтру сразу из state
+    //     if(state.filters.activeFilter === 'all'){
+    //         return state.heroes.heroes
+    //     } else {
+    //         return state.heroes.heroes.filter((item)=> item.element ===  state.filters.activeFilter)
+    //     }
+    // })
+
+    const heroesLoadingStatus = useSelector(state => state.heroes.heroesLoadingStatus);
     const dispatch = useDispatch();
     const {request} = useHttp();
 
