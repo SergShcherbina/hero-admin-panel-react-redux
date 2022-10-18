@@ -8,7 +8,7 @@ import { useEffect, useCallback } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { CSSTransition, TransitionGroup} from 'react-transition-group';
 
-import { heroesFetching, heroesFetched, heroesFetchingError, heroDeleted } from '../../actions';
+import { fetchHeroes, heroDeleted } from '../../actions';
 import HeroesListItem from "../heroesListItem/HeroesListItem";
 import Spinner from '../spinner/Spinner';
 
@@ -32,23 +32,12 @@ const HeroesList = () => {
 
     const filteredHeroes = useSelector(filteredHeroesSelector);         
 
-    // const filteredHeroes = useSelector(state=> {                     //фильтрация по активному фильтру сразу из state
-    //     if(state.filters.activeFilter === 'all'){
-    //         return state.heroes.heroes
-    //     } else {
-    //         return state.heroes.heroes.filter((item)=> item.element ===  state.filters.activeFilter)
-    //     }
-    // })
-
     const heroesLoadingStatus = useSelector(state => state.heroes.heroesLoadingStatus);
     const dispatch = useDispatch();
     const {request} = useHttp();
 
     useEffect(() => {
-        dispatch(heroesFetching());
-        request("http://localhost:3001/heroes")
-            .then(data => dispatch(heroesFetched(data)))
-            .catch(() => dispatch(heroesFetchingError()))
+        dispatch(fetchHeroes(request))                            //диспетчим ф-ю благодаря ReduxThunk в store
 
         // eslint-disable-next-line
     }, []);
