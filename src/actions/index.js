@@ -1,3 +1,5 @@
+import { createAction } from "@reduxjs/toolkit";
+
 export const fetchHeroes = (request) => (dispatch) => {                //формируем комплексный actionCreater 
     dispatch(heroesFetching());
         request("http://localhost:3001/heroes")
@@ -5,31 +7,32 @@ export const fetchHeroes = (request) => (dispatch) => {                //фор�
             .catch(() => dispatch(heroesFetchingError()))
 }
 
-export const fetchFilters = (request) => (dispatch) => {
+export const fetchFilters = (request) => (dispatch) => {               //при исп-ии ReduxThunk dispatch как арг прих автоматически
     dispatch(filtersFetching());
         request("http://localhost:3001/filters")
             .then(data => dispatch(filtersFetched(data)))
             .catch(() => dispatch(filtersFetchingError()))
 }
 
-export const heroesFetching = () => {
-    return {
-        type: 'HEROES_FETCHING'
-    }
-}
-
-export const heroesFetched = (heroes) => {
-    return {
-        type: 'HEROES_FETCHED',
-        payload: heroes
-    }
-}
-
-export const heroesFetchingError = () => {
-    return {
-        type: 'HEROES_FETCHING_ERROR'
-    }
-}
+export const heroesFetching = createAction('HEROES_FETCHING')
+// export const heroesFetching = () => {
+//     return {
+//         type: 'HEROES_FETCHING'
+//     }
+// }
+export const heroesFetched= createAction('HEROES_FETCHED')             //payload передается автоматически
+// export const heroesFetched = (heroes) => {
+//     return {
+//         type: 'HEROES_FETCHED',
+//         payload: heroes
+//     }
+// }
+export const heroesFetchingError = createAction('HEROES_FETCHING_ERROR')
+// export const heroesFetchingError = () => {
+//     return {
+//         type: 'HEROES_FETCHING_ERROR'
+//     }
+// }
 
 export const filtersFetching = () => {
     return {
@@ -57,25 +60,17 @@ export const activeFilterChanged = (filter) => {
     }
 }
 
-// export const activeFilterChanged = (filter) => (dispatch) => {
-//     setTimeout(() => {
-//         dispatch({
-//             type: 'ACTIVE_FILTER_CHANGED',
-//             payload: filter
-//         })
-//     }, 1000)
+export const heroCreated  = createAction('HERO_CREATED')
+// export const heroCreated = (hero) => {
+//     return {
+//         type: 'HERO_CREATED',
+//         payload: hero
+//     }
 // }
-
-export const heroCreated = (hero) => {
-    return {
-        type: 'HERO_CREATED',
-        payload: hero
-    }
-}
-
-export const heroDeleted = (id) => {
-    return {
-        type: 'HERO_DELETED',
-        payload: id
-    }
-}
+export const heroDeleted = createAction('HERO_DELETED')
+// export const heroDeleted = (id) => {
+//     return {
+//         type: 'HERO_DELETED',
+//         payload: id
+//     }
+// }
