@@ -13,13 +13,13 @@ import Spinner from '../spinner/Spinner';
 
 import './heroesList.scss';
 import { createSelector } from '@reduxjs/toolkit';
-import { heroDeleted, fetchHeroes } from './heroesSlice';
+import { heroDeleted, fetchHeroes, selectAll } from './heroesSlice';
 
 
 const HeroesList = () => {
 
     const filteredHeroesSelector = createSelector(                       //получаем мемоизирование знач из разн кусочков state
-        state => state.heroes.heroes,
+        selectAll,                                                       //получаем массив героев,ф-я приним. арг. state автоматич
         state => state.filters.activeFilter,
         (heroes, filter) => {
             if(filter === 'all') {                                       //фильтрация по активному фильтру с мимоиз зн из state
@@ -64,7 +64,7 @@ const HeroesList = () => {
         if (arr.length === 0) {
             return (
                 <CSSTransition
-                    timeout={0}
+                    timeout={500}
                     classNames="transition">
                     <h5 className="text-center mt-5">Героев пока нет</h5>
                 </CSSTransition>
